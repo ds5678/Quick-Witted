@@ -1,76 +1,58 @@
-﻿using System;
-using System.Xml;
-using Harmony;
+﻿using Harmony;
+using MelonLoader;
+using UnityEngine;
 
 namespace QuickWitted
 {
-    [HarmonyPatch(typeof(SkillsManager), "IncrementPointsAndNotify")]
-    public class QuickWitted
+    
+    public class Implementation : MelonMod
     {
 
-        static int[] learnRates;
-        static bool isRunning;
-        static XmlDocument config;
-
-        //Load ratio fo each skill;
-        public static void OnLoad()
+        public override void OnApplicationStart()
         {
-
-            //Load XML and initiate the array
-            LoadXML();
-
-            int numberOfSkills = Enum.GetNames(typeof(SkillType)).Length;
-            learnRates = new int[numberOfSkills];
-
-            foreach (SkillType type in Enum.GetValues(typeof(SkillType)))
-            {
-                learnRates[(int)type] = GetRateForSkill(type);
-            }
-
+            Debug.Log($"[{Info.Name}] Version {Info.Version} loaded!");
+            QuickWittedModSettings.OnLoad();
         }
 
-        static int GetRateForSkill(SkillType type)
+        internal static int GetRateForSkill(SkillType type)
         {
-            try
+            switch (type)
             {
-
-                XmlNodeList elemList = config.GetElementsByTagName(type.ToString());
-                int rv = int.Parse(elemList[0].InnerText);
-
-                return rv;
-            }
-            catch
-            {
-                //if you can't load it form the XML default it to 2
-                return 2;
-            }
-
-
-
-        }
-
-        static bool LoadXML()
-        {
-
-            config = new XmlDocument();
-            //stick this whole thin in atry for now. 
-            //TODO:Better error managment
-            try
-            {
-                config.Load("QuickWittedConfig.xml");
-
-                return true;
-            }
-            catch
-            {
-                return false;
+                case SkillType.Archery:
+                    return QuickWittedModSettings.settings.archeryrate;
+                case SkillType.CarcassHarvesting:
+                    return QuickWittedModSettings.settings.carcassharvestingrate;
+                case SkillType.ClothingRepair:
+                    return QuickWittedModSettings.settings.clothingrepairrate;
+                case SkillType.Cooking:
+                    return QuickWittedModSettings.settings.cookingrate;
+                case SkillType.Firestarting:
+                    return QuickWittedModSettings.settings.firestartingrate;
+                case SkillType.Gunsmithing:
+                    return QuickWittedModSettings.settings.gunsmithingrate;
+                case SkillType.IceFishing:
+                    return QuickWittedModSettings.settings.icefishingrate;
+                case SkillType.Revolver:
+                    return QuickWittedModSettings.settings.revolverrate;
+                case SkillType.Rifle:
+                    return QuickWittedModSettings.settings.riflerate;
+                case SkillType.ToolRepair:
+                    return QuickWittedModSettings.settings.toolrepairrate;
+                default:
+                    return 1;
             }
         }
+    }
 
-
-        static void Prefix(SkillType skillType, ref int numPoints)
+    internal class Patches 
+    {
+        [HarmonyPatch(typeof(SkillsManager), "IncrementPointsAndNotify")]
+        internal class SkillIncreasePatch
         {
-            numPoints = numPoints * learnRates[(int)skillType];
+            static void Prefix(SkillType skillType, ref int numPoints)
+            {
+                numPoints = numPoints * Implementation.GetRateForSkill(skillType);
+            }
         }
     }
 }

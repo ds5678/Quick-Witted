@@ -1,38 +1,18 @@
 # Quick Witted
 
-This is a fan-made, experimental mod for the game [The Long Dark](http://hinterlandgames.com/) allowing to adjust the difficulty settings of the game.
+This is a small mod for [The Long Dark](http://hinterlandgames.com/) allowing the player to adjust the difficulty of the Skills system.
 
-### Disclaimer
+## Disclaimer
 
-* **DO NOT** report bugs to Hinterland Studios if you use this mod; any bug you encounter may be due to the mod.
+* **DO NOT** report bugs to Hinterland Studios if you use this mod or any other mods; any bug you encounter may be due to the mod.
+
+* **DO** turn off analytics if you haven't already. We don't want to bother Hinterland with any false crash reports.
 
 * This is completely fan-made and I have **no affiliation** with Hinterland Studios whatsoever.
 
-* This mod is **experimental**; it should work but there is no guarantee it won't screw up your save somehow (though corrupting a save is highly unlikely). It's also very rough in terms of use (you need to edit an XML file).
+## Installation
 
-### How to install
-
-* Install [zeobviouslyfakeacc's](https://github.com/zeobviouslyfakeacc) awesome [Mod Loader for TLD](https://github.com/zeobviouslyfakeacc/ModLoaderInstaller).
-
-* The mod loader will create a directory 'mods' at the root of your game directory; it will also add a first mod: AddModdedToVersionString.dll. Leave it; it will make sure your game appears as loaded in the main menu.
-
-* Move the QuickWitted.dll file into this 'mods' directory.
-
-* Move the QuickWittedConfig.xml file into your game root directory (that is, the directory that contains the "mods" folder).
-
-* Tweak the values in QuickWittedConfig.xml as you wish (they are a multiplier rate).
-
-* The next time you start the game, those values should be taken into account.
-
-### How to use
-Open the XML, tweak the values and BINGO.
-
-### How to uninstall
-
-To uninstall the mod, simply remove the .dll file from the mods/ folder.
-
-If you want to completely remove modding capabilities from your game, use [zeobviouslyfakeacc's Mod Loader for TLD](https://github.com/zeobviouslyfakeacc/ModLoaderInstaller) again; you can disable the mod loading patch from the tool.
-
-### License
-
-The mod is licensed under the [WTFPL](http://www.wtfpl.net/) license (Do What the Fuck You Want to Public License); you can basically do whatever you want with the code/the binaries without any attribution required.
+1. If you haven't done so already, install MelonLoader by downloading and running [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe)
+2. Download the latest version of `QuickWitted.dll` from the [releases page](https://github.com/ds5678/QuickWitted/releases)
+3. Download the latest version of `ModSettings.dll` from its [release page](https://github.com/zeobviouslyfakeacc/ModSettings/releases).
+4. Move `QuickWitted.dll` and `ModSettings.dll` into the Mods folder in your TLD install directory.
